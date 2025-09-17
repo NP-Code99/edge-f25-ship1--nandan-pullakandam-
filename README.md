@@ -1,5 +1,7 @@
 # Ship 1 — Node/JS
 
+Quick links: [Setup](SETUP.md) · [Development](DEVELOPMENT.md) · [Troubleshooting](TROUBLESHOOTING.md) · [Glossary](GLOSSARY.md) · [Assessment](RUBRIC.md)
+
 Welcome to your next voyage with Edge Labs! This ship builds on Ship 0’s browser app and strengthens your JavaScript fundamentals with test‑driven development and meaningful UX features. This repository mirrors the structure and clarity of our Python track docs while staying 100% Node/JS and browser‑focused.
 
 ---
