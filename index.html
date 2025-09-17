@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ship 1 Log</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 600px;
+        margin: auto;
+        padding: 1rem;
+      }
+      #entries-list li {
+        margin-bottom: 0.25rem;
+      }
+      .timestamp {
+        color: #888;
+        font-size: 0.9em;
+      }
+      .delete-btn {
+        margin-left: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ship 1 Log</h1>
+    <div id="controls">
+      <input id="entry-input" placeholder="Type a new entry…" />
+      <button id="add-btn">Add</button>
+      <button id="clear-btn">Clear</button>
+      <input
+        id="search-input"
+        placeholder="Search…"
+        style="margin-left: 0.5rem"
+      />
+    </div>
+    <p id="stats"></p>
+    <ul id="entries-list"></ul>
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>
