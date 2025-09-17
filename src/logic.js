@@ -32,22 +32,10 @@
  * @param {string} text raw text from the input box
  * @returns {Array<{t: string, v: string}>} new entries array
  */
+// eslint-disable-next-line no-unused-vars
 export function addEntry(entries, text) {
-  // Trim the text and validate it's not empty
-  const trimmedText = text.trim();
-  if (trimmedText === '') {
-    throw new Error('Entry text cannot be empty');
-  }
-
-  // Create timestamp in YYYY-MM-DD HH:MM:SS format
-  const now = new Date();
-  const timestamp = now.toISOString().replace('T', ' ').slice(0, 19);
-
-  // Create new entry object
-  const newEntry = { t: timestamp, v: trimmedText };
-
-  // Return new array with entry inserted at the start
-  return [newEntry, ...entries];
+  // TODO: remove the following line and write your implementation.
+  throw new Error("addEntry() not implemented yet");
 }
 
 /**
@@ -63,14 +51,10 @@ export function addEntry(entries, text) {
  * @param {number} index 1‑based index (1 = first/newest)
  * @returns {Array<{t: string, v: string}>} new entries array
  */
+// eslint-disable-next-line no-unused-vars
 export function deleteEntry(entries, index) {
-  // Validate that index is a positive integer between 1 and entries.length
-  if (!Number.isInteger(index) || index < 1 || index > entries.length) {
-    return entries;
-  }
-
-  // Return new array with element at position index-1 removed
-  return entries.filter((_, i) => i !== index - 1);
+  // TODO: remove the following line and write your implementation.
+  throw new Error("deleteEntry() not implemented yet");
 }
 
 /**
@@ -87,15 +71,8 @@ export function deleteEntry(entries, index) {
  * @param {string} query search string
  * @returns {Array<{t: string, v: string}>} filtered entries
  */
+// eslint-disable-next-line no-unused-vars
 export function searchEntries(entries, query) {
-  // If query is falsy or empty, return the original entries array
-  if (!query || query.trim() === '') {
-    return entries;
-  }
-
-  // Convert query to lowercase for case-insensitive search
-  const lowerQuery = query.toLowerCase();
-
-  // Filter entries whose value includes the query substring (case-insensitive)
-  return entries.filter(entry => entry.v.toLowerCase().includes(lowerQuery));
+  // TODO: remove the following line and write your implementation.
+  throw new Error("searchEntries() not implemented yet");
 }

@@ -14,6 +14,7 @@ git config --global user.email "yourname@unc.edu"
 ```
 
 Verify:
+
 ```bash
 git config --global user.name
 git config --global user.email
@@ -29,12 +30,14 @@ git config --global user.email
 4. Create the repo
 
 Clone your repo locally using your IDE (VS Code or Cursor) or via terminal:
+
 ```bash
 git clone https://github.com/YOUR-USERNAME/edge-f25-ship1-YOUR-NAME.git
 cd edge-f25-ship1-YOUR-NAME
 ```
 
 Create and switch to your branch:
+
 ```bash
 git checkout -b <firstname-lastname>
 ```
@@ -52,16 +55,19 @@ nvm install
 ```
 
 Install dev tools (Jest, jsdom, etc.):
+
 ```bash
 npm install --no-audit --no-fund
 ```
 
 Run tests to verify the environment:
+
 ```bash
 npm test
 ```
 
 Optional preflight (Node version + lint + tests):
+
 ```bash
 npm run preflight
 ```
@@ -71,10 +77,12 @@ npm run preflight
 ## Step 3: Open the App
 
 - Easiest: serve locally to avoid module/CORS quirks
+
 ```bash
 npx http-server .
 # then open the printed http://localhost:XXXX
 ```
+
 - Or double‑click `index.html` to open in your browser
 
 ---
@@ -96,5 +104,3 @@ Make small, meaningful commits. Keep your branch name consistent.
 
 - See `TROUBLESHOOTING.md` for common issues
 - Ask in Slack or come to office hours
-
-

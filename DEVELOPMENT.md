@@ -7,44 +7,56 @@
 ## What You’re Building
 
 An in‑browser log app with:
-- Baseline: real‑time search with 300ms debounce
+
+- Baseline: implement core logic functions + real‑time search with 300ms debounce
 - Hard Mode: keyboard shortcuts for common actions
 
-Logic is already implemented and tested. You’ll extend `src/app.js` (events + DOM).
+You'll implement pure functions in `src/logic.js` and extend `src/app.js` (events + DOM).
 
 ---
 
-## Files You’ll Touch
+## Files You'll Touch
 
+- `src/logic.js` — implement addEntry, deleteEntry, searchEntries functions
 - `src/app.js` — add debounced search (baseline) and keyboard shortcuts (hard mode)
-- `tests/app.debounce.test.js` — tests for baseline
-- `tests/app.shortcuts.test.js` — tests for hard mode
 
-Helpful reference code:
-- `src/logic.js` — pure functions (add/delete/search)
-- `src/storage.js` — localStorage helpers
-- `src/stats.js` — meanLength
+Tests that guide you:
+
+- `tests/logic.test.js` — tests for pure functions
+- `tests/storage.test.js` — tests for storage integration
+- `tests/app.debounce.test.js` — tests for baseline debounced search
+- `tests/app.shortcuts.test.js` — tests for hard mode shortcuts
+
+Reference code:
+
+- `src/stats.js` — meanLength helper (already implemented)
 
 ---
 
 ## Baseline (Required)
 
-Goal: implement debounced search in `src/app.js`.
+Goal: implement logic functions and debounced search.
 
-Requirements:
-1. Listen to `input` events on the search box
-2. Debounce by ~300ms before filtering and rendering
-3. Case‑insensitive filter using existing `searchEntries(entries, query)`
-4. Clearing search restores full list
-5. Stats should reflect the displayed (filtered) list
+**Step 1: Implement logic functions in `src/logic.js`**
 
-Tests: run `npm test` and make `tests/app.debounce.test.js` pass (uses fake timers).
+- `addEntry(entries, text)` - trim text, add timestamp, return new array
+- `deleteEntry(entries, index)` - remove by 1-based index, return new array
+- `searchEntries(entries, query)` - case-insensitive filter, return new array
+
+**Step 2: Implement debounced search in `src/app.js`**
+
+- Listen to `input` events on the search box
+- Debounce by 300ms before filtering and rendering
+- Update stats to reflect the displayed (filtered) list
+
+Tests: `tests/logic.test.js`, `tests/storage.test.js`, `tests/app.debounce.test.js` should pass.
 
 ---
 
 ## Hard Mode (Optional)
 
 Add keyboard shortcuts in `src/app.js`:
+
 - Enter in add input → add entry if non‑empty
 - Cmd/Ctrl+K → focus search
 - Escape → clear search and restore full list

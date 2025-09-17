@@ -1,11 +1,11 @@
 /*
  * Debounced real-time search (baseline) tests for Ship 1.
  */
-import { jest } from '@jest/globals';
+import { jest } from "@jest/globals";
 
 jest.useFakeTimers();
 
-describe('app.js - debounced search', () => {
+describe("app.js - debounced search", () => {
   beforeEach(() => {
     document.body.innerHTML = `
       <input id="entry-input" />
@@ -16,36 +16,44 @@ describe('app.js - debounced search', () => {
       <ul id="entries-list"></ul>
     `;
     // Provide a minimal localStorage mock for app.js via the storage.js module
-    Object.defineProperty(window, 'localStorage', {
+    Object.defineProperty(window, "localStorage", {
       value: {
         _data: {},
-        getItem(key) { return this._data[key] || null; },
-        setItem(key, val) { this._data[key] = String(val); },
-        removeItem(key) { delete this._data[key]; },
-        clear() { this._data = {}; }
+        getItem(key) {
+          return this._data[key] || null;
+        },
+        setItem(key, val) {
+          this._data[key] = String(val);
+        },
+        removeItem(key) {
+          delete this._data[key];
+        },
+        clear() {
+          this._data = {};
+        },
       },
-      configurable: true
+      configurable: true,
     });
   });
 
-  test('typing in search does not re-render until 300ms elapse', async () => {
-    await import('../src/app.js');
-    const search = document.getElementById('search-input');
-    const list = document.getElementById('entries-list');
-    const addBtn = document.getElementById('add-btn');
-    const input = document.getElementById('entry-input');
+  test("typing in search does not re-render until 300ms elapse", async () => {
+    await import("../src/app.js");
+    const search = document.getElementById("search-input");
+    const list = document.getElementById("entries-list");
+    const addBtn = document.getElementById("add-btn");
+    const input = document.getElementById("entry-input");
 
     // Seed with some entries via the UI
-    input.value = 'alpha';
+    input.value = "alpha";
     addBtn.click();
-    input.value = 'beta';
+    input.value = "beta";
     addBtn.click();
-    input.value = 'alphA test';
+    input.value = "alphA test";
     addBtn.click();
 
     // Start typing in the search box
-    search.value = 'alp';
-    search.dispatchEvent(new Event('input'));
+    search.value = "alp";
+    search.dispatchEvent(new Event("input"));
 
     // Immediately after input, debounced render should not have updated yet
     // Expect full list of 3 items still present
@@ -62,5 +70,3 @@ describe('app.js - debounced search', () => {
     expect(list.children.length).toBe(2);
   });
 });
-
-

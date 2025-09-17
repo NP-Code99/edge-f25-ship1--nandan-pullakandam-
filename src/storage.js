@@ -8,9 +8,13 @@
  * of your logic or UI.
  */
 
-import { addEntry as addEntryLogic, deleteEntry as deleteEntryLogic, searchEntries as searchEntriesLogic } from './logic.js';
+import {
+  addEntry as addEntryLogic,
+  deleteEntry as deleteEntryLogic,
+  searchEntries as searchEntriesLogic,
+} from "./logic.js";
 
-const STORAGE_KEY = 'ship1Entries';
+const STORAGE_KEY = "ship1Entries";
 
 /**
  * Load the current array of entries from `localStorage`.
