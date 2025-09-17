@@ -1,5 +1,5 @@
 /*
- * Pure logic functions for Ship 1 (browser version).
+ * Pure logic functions for Ship 1 .
  *
  * Each function receives the current array of entries and returns a new
  * array.  Entries are plain objects of the form `{ t: string, v: string }`,
@@ -33,8 +33,21 @@
  * @returns {Array<{t: string, v: string}>} new entries array
  */
 export function addEntry(entries, text) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error('addEntry() not implemented yet');
+  // Trim the text and validate it's not empty
+  const trimmedText = text.trim();
+  if (trimmedText === '') {
+    throw new Error('Entry text cannot be empty');
+  }
+
+  // Create timestamp in YYYY-MM-DD HH:MM:SS format
+  const now = new Date();
+  const timestamp = now.toISOString().replace('T', ' ').slice(0, 19);
+
+  // Create new entry object
+  const newEntry = { t: timestamp, v: trimmedText };
+
+  // Return new array with entry inserted at the start
+  return [newEntry, ...entries];
 }
 
 /**
@@ -51,8 +64,13 @@ export function addEntry(entries, text) {
  * @returns {Array<{t: string, v: string}>} new entries array
  */
 export function deleteEntry(entries, index) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error('deleteEntry() not implemented yet');
+  // Validate that index is a positive integer between 1 and entries.length
+  if (!Number.isInteger(index) || index < 1 || index > entries.length) {
+    return entries;
+  }
+
+  // Return new array with element at position index-1 removed
+  return entries.filter((_, i) => i !== index - 1);
 }
 
 /**
@@ -70,6 +88,14 @@ export function deleteEntry(entries, index) {
  * @returns {Array<{t: string, v: string}>} filtered entries
  */
 export function searchEntries(entries, query) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error('searchEntries() not implemented yet');
+  // If query is falsy or empty, return the original entries array
+  if (!query || query.trim() === '') {
+    return entries;
+  }
+
+  // Convert query to lowercase for case-insensitive search
+  const lowerQuery = query.toLowerCase();
+
+  // Filter entries whose value includes the query substring (case-insensitive)
+  return entries.filter(entry => entry.v.toLowerCase().includes(lowerQuery));
 }

@@ -1,30 +1,62 @@
-# Grading Rubric
+# Assessment (Requirements + Rubric)
 
-This rubric explains how points are allocated for Ship 1 in the Node/JS track.  Each numbered item corresponds directly to one or more automated tests in the `tests/` folder.  Your final grade is the sum of points earned.  The hard mode is optional; you can achieve full credit for the baseline without attempting hard mode.  If you opt in to hard mode, the additional points can only help your score.
+This document combines the learning outcomes and grading rubric for Ship 1 (Node/JS). Items map directly to automated tests in `tests/` and a small number of manual checks.
 
-| Requirement | Points | Tested by |
+---
+
+## Learning Outcomes
+
+You will be able to:
+- Persist data in the browser using `localStorage`
+- Work with ES Modules and DOM events
+- Implement debounced UI behavior using timers
+- Design pure, testable functions and read tests as specifications
+- Run tests with Jest + jsdom and interpret failures
+- Use Git/GitHub effectively (branching, meaningful commits)
+
+---
+
+## Acceptance Criteria & Points
+
+| Requirement | Points | Verified by |
 |---|---:|---|
 | **Baseline** | | |
-| Proper Node version (`>=18`) and project setup | 5 | `scripts/preflight.mjs` | 
-| `addEntry(entries, text)` returns a new entry with trimmed text and timestamp (`YYYY‑MM‑DD HH:MM:SS`) | 15 | `tests/logic.test.js::addEntry` |
-| Timestamps are stored as strings and newest entries appear first in the returned array | 10 | same as above |
-| The UI lists entries with numbering and timestamps (newest first) | 10 | manual TA check |
-| Clear action removes all entries from localStorage and updates the UI | 5 | manual TA check |
-| `meanLength()` reports the correct average entry length | 5 | `tests/stats.test.js` |
+| Proper Node version (`.nvmrc` → Node 18) and project setup | 5 | `scripts/preflight.mjs` |
+| Debounced search (300ms) filters entries case‑insensitively | 20 | `tests/app.debounce.test.js` |
+| Clearing search restores full list; stats reflect displayed list | 10 | `tests/app.debounce.test.js` |
+| `meanLength()` correct | 5 | `tests/stats.test.js` |
+| Storage helpers behave correctly | 10 | `tests/storage.test.js` |
 | At least two meaningful commits on a correctly named branch | 5 | manual TA check |
-| README and repository follow submission guidelines (correct repo name, branch, screenshot if applicable) | 5 | manual TA check |
-| **Hard mode (optional)** | | |
-| `deleteEntry(entries, index)` removes the entry at the given 1‑based index and returns the updated array; invalid indices return the original array | 10 | `tests/logic.test.js::deleteEntry` |
-| The UI provides a delete button for each entry and updates the list when clicked | 5 | manual TA check |
-| `searchEntries(entries, query)` performs a case‑insensitive search and returns all matching entries; empty query returns all entries | 10 | `tests/logic.test.js::searchEntries` |
-| The UI filters entries as you type in the search box | 5 | manual TA check |
-| Clean code: passes ESLint/Prettier without warnings | 5 | `npm run preflight` |
-| Clear documentation of optional stretch features (if implemented) | 5 | manual TA check |
+| README/SETUP/DEVELOPMENT present and coherent | 5 | manual TA check |
+| **Hard Mode (optional)** | | |
+| Keyboard shortcuts implemented (Enter add; Cmd/Ctrl+K focus search; Esc clear; Cmd/Ctrl+Backspace clear all) | 30 | `tests/app.shortcuts.test.js` |
 
-Total baseline points: **60**.  Total with hard mode: **100**.  Your final grade is scaled based on how many points you earn.  Manual TA checks are noted and usually quick to verify.
+Baseline: **60** points. With Hard Mode: **90** points. Instructors may scale to 100.
 
-## Autograding notes
+---
 
-The CI workflow runs `npm run preflight` followed by `npm test`.  Failing tests will appear in the GitHub Actions log with the test name and a descriptive message.  The TA will correlate test failures with rubric items.  Linting warnings count against the “clean code” item.  Use the messages provided by Jest and ESLint to guide your fixes.
+## Test Mapping
 
-Manual checks include verifying your commit history and branch name, ensuring that your output formatting is human friendly, and reading your README for clarity.  These items are straightforward but require that you follow the instructions.
+- `tests/app.debounce.test.js`: Debounced search behavior and filtered rendering
+- `tests/app.shortcuts.test.js`: Keyboard shortcuts behavior
+- `tests/storage.test.js`: Storage read/write/clear integration
+- `tests/stats.test.js`: `meanLength()` correctness
+- `tests/logic.test.js`: Pure functions parity (kept green)
+
+---
+
+## Submission Checklist
+
+- Repo named `edge-f25-ship1-<firstname-lastname>` (public)
+- Work on branch `<firstname-lastname>`
+- `npm test` is green locally
+- Optional: `npm run preflight` before submitting
+- Submit repo URL, branch name, and what you completed (Baseline/Hard Mode)
+
+---
+
+## Notes
+
+- Tests run under jsdom; no real browser needed
+- Keep commits small and messages meaningful
+- If using AI assistance, you are responsible for understanding and validating changes

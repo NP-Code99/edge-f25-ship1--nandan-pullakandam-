@@ -13,6 +13,10 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 
 describe('storage.js', () => {
+  beforeEach(() => {
+    // Clear localStorage before each test to ensure isolation
+    localStorage.clear();
+  });
   /**
    * Create a new temporary file for the data store.  Returns the path to
    * the file and sets the SHIP1_DATA_PATH environment variable so that
@@ -43,7 +47,7 @@ describe('storage.js', () => {
 
   test('addEntry inserts at the start with a formatted timestamp', async () => {
     const tmpFile = setupTmpFile();
-    const storage = await import('../src/ship1/storage.js');
+    const storage = await import('../src/storage.js');
     storage.addEntry('hello');
     const entries = storage.loadEntries();
     expect(entries.length).toBe(1);
@@ -55,7 +59,7 @@ describe('storage.js', () => {
 
   test('addEntry trims whitespace and rejects empty values', async () => {
     const tmpFile = setupTmpFile();
-    const storage = await import('../src/ship1/storage.js');
+    const storage = await import('../src/storage.js');
     // whitespace only should throw
     expect(() => storage.addEntry('   ')).toThrow();
     // surrounding whitespace should be trimmed
@@ -68,7 +72,7 @@ describe('storage.js', () => {
 
   test('deleteEntry removes the correct item and reports success/failure', async () => {
     const tmpFile = setupTmpFile();
-    const storage = await import('../src/ship1/storage.js');
+    const storage = await import('../src/storage.js');
     // Add three entries: c (latest), b, a (oldest)
     storage.addEntry('a');
     storage.addEntry('b');
@@ -89,7 +93,7 @@ describe('storage.js', () => {
 
   test('searchEntries returns matches in a case‑insensitive manner', async () => {
     const tmpFile = setupTmpFile();
-    const storage = await import('../src/ship1/storage.js');
+    const storage = await import('../src/storage.js');
     storage.addEntry('Alpha');
     storage.addEntry('beta');
     storage.addEntry('alphA test');

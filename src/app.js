@@ -65,6 +65,10 @@ function render(list) {
 render(entries);
 
 // Event listeners
+// TODO (baseline): Implement real-time search with 300ms debounce. Replace the
+// immediate filtering below with a debounced handler so rapid typing does not
+// re-render on every keystroke. Also update the stats so they reflect the
+// currently displayed (filtered) list rather than the full entries array.
 addBtn.addEventListener('click', () => {
     const raw = entryInput.value;
     try {
@@ -113,4 +117,14 @@ searchInput.addEventListener('input', () => {
   const q = searchInput.value;
   const list = q ? searchEntries(entries, q) : entries;
   render(list);
+});
+
+// TODO (hard mode): Add keyboard shortcuts.
+// - Enter in the add input should add the entry if non-empty
+// - Ctrl/Cmd+K should focus the search input
+// - Escape should clear the search box and restore the full list
+// - Ctrl/Cmd+Backspace should clear all entries (with confirmation)
+// Hint: listen for 'keydown' on the document and check modifier keys.
+document.addEventListener('keydown', (_event) => {
+  // implement in hard mode
 });
