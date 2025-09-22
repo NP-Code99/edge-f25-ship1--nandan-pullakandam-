@@ -1,9 +1,9 @@
 /*
- * Pure logic functions for Ship 1 .
+ * Pure logic functions for Ship 1 .
  *
  * Each function receives the current array of entries and returns a new
  * array.  Entries are plain objects of the form `{ t: string, v: string }`,
- * where `t` is a timestamp string (`YYYY‑MM‑DD HH:MM:SS`) and `v` is the
+ * where `t` is a timestamp string (`YYYY‑MM‑DD HH:MM:SS`) and `v` is the
  * entry text.
  *
  * Your tasks:
@@ -20,7 +20,7 @@
  * **TODO (baseline):**
  *   1. Trim the provided `text` argument; if it is empty after trimming,
  *      throw an error.
- *   2. Create a timestamp string formatted as `YYYY‑MM‑DD HH:MM:SS` using
+ *   2. Create a timestamp string formatted as `YYYY‑MM‑DD HH:MM:SS` using
  *      JavaScript’s `Date` API.  Hint: `toISOString()` returns
  *      `YYYY‑MM‑DDTHH:MM:SS.sssZ`—replace the `T` with a space and slice off
  *      the milliseconds and timezone.
@@ -34,8 +34,23 @@
  */
 // eslint-disable-next-line no-unused-vars
 export function addEntry(entries, text) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error("addEntry() not implemented yet");
+  // Trim the text and check if it's empty
+  const trimmedText = text.trim();
+  if (trimmedText === "") {
+    throw new Error("Entry text cannot be empty");
+  }
+  
+  // Create timestamp in YYYY-MM-DD HH:MM:SS format
+  const now = new Date();
+  const timestamp = now.toISOString()
+    .replace('T', ' ')
+    .slice(0, 19);
+  
+  // Create new entry object
+  const newEntry = { t: timestamp, v: trimmedText };
+  
+  // Return new array with entry at the beginning
+  return [newEntry, ...entries];
 }
 
 /**
@@ -53,8 +68,13 @@ export function addEntry(entries, text) {
  */
 // eslint-disable-next-line no-unused-vars
 export function deleteEntry(entries, index) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error("deleteEntry() not implemented yet");
+  // Validate index is a positive integer between 1 and entries.length
+  if (!Number.isInteger(index) || index < 1 || index > entries.length) {
+    return entries; // Return original array unchanged
+  }
+  
+  // Return new array with element at position index-1 removed
+  return entries.filter((_, i) => i !== index - 1);
 }
 
 /**
@@ -73,6 +93,16 @@ export function deleteEntry(entries, index) {
  */
 // eslint-disable-next-line no-unused-vars
 export function searchEntries(entries, query) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error("searchEntries() not implemented yet");
+  // If query is falsy or empty, return the original entries array
+  if (!query || query.trim() === "") {
+    return entries;
+  }
+  
+  // Convert query to lowercase for case-insensitive search
+  const lowerQuery = query.toLowerCase();
+  
+  // Filter entries whose 'v' field contains the query (case-insensitive)
+  return entries.filter(entry => 
+    entry.v.toLowerCase().includes(lowerQuery)
+  );
 }
