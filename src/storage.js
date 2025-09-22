@@ -1,5 +1,5 @@
 /*
- * Persistence helpers for Ship 1 .
+ * Persistence helpers for Ship 1 .
  *
  * These functions read from and write to the browser’s `localStorage` under
  * a single key.  You should not have to modify this file for the baseline

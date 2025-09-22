@@ -1,5 +1,5 @@
 /*
- * Statistics helpers for Ship 1 .
+ * Statistics helpers for Ship 1 .
  *
  * This module exports a single function `meanLength()` that computes the
  * average character length of an iterable of strings.  If the iterable is

@@ -1,5 +1,5 @@
 /*
- * Tests for the statistics helpers in Ship 1 (Node/JS).
+ * Tests for the statistics helpers in Ship 1 (Node/JS).
  */
 
 describe("stats.js", () => {
