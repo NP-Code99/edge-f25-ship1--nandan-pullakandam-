@@ -1,5 +1,5 @@
 /*
- * Entry point for the Ship 1 browser application.
+ * Entry point for the Ship 1 browser application.
  *
  * This file wires together the pure functions in `logic.js` with the DOM and
  * persistence helpers in `storage.js`.  It loads entries from
@@ -55,10 +55,9 @@ function render(list) {
     li.appendChild(delBtn);
     listEl.appendChild(li);
   });
-  // TODO (baseline): Update stats to reflect the displayed list instead of full entries
-  // Replace 'entries' below with 'list' parameter to show filtered stats
-  const count = entries.length;
-  const avg = meanLength(entries.map((e) => e.v));
+  // Update stats to reflect the displayed list instead of full entries
+  const count = list.length;
+  const avg = meanLength(list.map((e) => e.v));
   statsEl.textContent = `Count: ${count} | Mean length: ${avg.toFixed(2)} chars`;
 }
 
@@ -119,9 +118,17 @@ listEl.addEventListener("click", (event) => {
 let debounceTimer = null;
 
 searchInput.addEventListener("input", () => {
-  // TODO: Clear any existing timer
-  // TODO: Set a new timer to filter and render after 300ms delay
-  // Hint: Use setTimeout and call searchEntries() then render()
+  // Clear any existing timer
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+  }
+  
+  // Set a new timer to filter and render after 300ms delay
+  debounceTimer = setTimeout(() => {
+    const query = searchInput.value;
+    const filteredEntries = query ? searchEntries(entries, query) : entries;
+    render(filteredEntries);
+  }, 300);
 });
 
 // TODO (hard mode): Add keyboard shortcuts.
@@ -129,23 +136,45 @@ document.addEventListener("keydown", (event) => {
   const key = event.key;
   const isCtrlOrCmd = event.ctrlKey || event.metaKey;
 
-  // TODO: Handle Enter key in add input - add entry if non-empty
+  // Handle Enter key in add input - add entry if non-empty
   if (key === "Enter" && document.activeElement === entryInput) {
-    // Your code here
+    event.preventDefault();
+    const raw = entryInput.value;
+    if (raw.trim() !== "") {
+      try {
+        const updated = addEntry(entries, raw);
+        entries = updated;
+        saveEntries(entries);
+        entryInput.value = "";
+        // After adding, re-apply any current search filter
+        const q = searchInput.value;
+        const list = q ? searchEntries(entries, q) : entries;
+        render(list);
+      } catch (err) {
+        alert(err && err.message ? err.message : String(err));
+      }
+    }
   }
 
-  // TODO: Handle Ctrl/Cmd+K - focus the search input
+  // Handle Ctrl/Cmd+K - focus the search input
   if (isCtrlOrCmd && key === "k") {
-    // Your code here
+    event.preventDefault();
+    searchInput.focus();
   }
 
-  // TODO: Handle Escape - clear search box and restore full list
+  // Handle Escape - clear search box and restore full list
   if (key === "Escape") {
-    // Your code here
+    searchInput.value = "";
+    render(entries);
   }
 
-  // TODO: Handle Ctrl/Cmd+Backspace - clear all entries with confirmation
+  // Handle Ctrl/Cmd+Backspace - clear all entries with confirmation
   if (isCtrlOrCmd && key === "Backspace") {
-    // Your code here
+    event.preventDefault();
+    if (window.confirm("This will erase all entries. Continue?")) {
+      clearEntries();
+      entries = [];
+      render(entries);
+    }
   }
 });
